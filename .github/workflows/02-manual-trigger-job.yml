@@ -14,6 +14,10 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-
-    - name: run training job
-      run: bash -x ../src/job.yml
+    - name: setup
+      run: bash setup.sh
+      working_directory: .
+      continue-on-error: true
+    - name: Run Training job
+      run: bash -x run-job.sh job.yml
+      working-directory: src
