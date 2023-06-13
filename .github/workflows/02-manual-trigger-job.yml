@@ -19,5 +19,5 @@ jobs:
       working-directory: .
       continue-on-error: true
     - name: Run Training job
-      run: bash -x run-job.sh job.yml
-      working-directory: src
+      run: bash -x run-job.sh job.yml 
+      working-directory: src 
