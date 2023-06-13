@@ -16,7 +16,7 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: setup
       run: bash setup.sh
-      working_directory: .
+      working-directory: .
       continue-on-error: true
     - name: Run Training job
       run: bash -x run-job.sh job.yml
