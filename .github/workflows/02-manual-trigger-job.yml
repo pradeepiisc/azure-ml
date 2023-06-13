@@ -19,7 +19,7 @@ jobs:
       working-directory: .
       continue-on-error: true
     - name: Compute Creation
-    - run: az ml compute create --name "mlcompute-temp" --type ComputeInstance --size STANDARD_DS1_V2
+      run: az ml compute create --name "mlcompute-temp" --type ComputeInstance --size STANDARD_DS1_V2
     - name: Run Training job
       run: bash -x run-job.sh job.yml 
       working-directory: src 
