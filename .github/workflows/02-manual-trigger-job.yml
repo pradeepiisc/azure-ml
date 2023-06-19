@@ -1,25 +1,33 @@
 name: Manually trigger an Azure Machine Learning job
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+# another option 
+# workflow_dispatch:
+  # schedule:
+    # - cron:
 
-# jobs:
-#   train:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Check out repo
-#       uses: actions/checkout@main
-#     - name: Install az ml extension
-#       run: az extension add -n ml -y
-#     - name: Azure login
-#       uses: azure/login@v1
-#       with:
-#         creds: ${{secrets.AZURE_CREDENTIALS}}
-#     - name: setup
-#       run: bash setup.sh
-#       working-directory: .
-#       continue-on-error: true
-#     - name: Compute Creation
-#       run: az ml compute create --name "mlcompute-temp" --type ComputeInstance --size STANDARD_DS1_V2
-#     - name: Run Training job
-#       run: bash -x run-job.sh job.yml 
-#       working-directory: src 
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@main
+    - name: Install az ml extension
+      run: az extension add -n ml -y
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+    - name: setup
+      run: bash setup.sh
+      working-directory: .
+      continue-on-error: true
+# Ideally, compute should not be created here as it has to be stopped once the training is done
+    - name: Compute Creation
+      run: az ml compute create --name "mlcompute-temp" --type ComputeInstance --size STANDARD_DS1_V2
+    - name: Run Training job
+      run: bash -x run-job.sh job.yml 
+      working-directory: src 
